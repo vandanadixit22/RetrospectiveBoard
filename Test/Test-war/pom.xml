@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>Test-war</artifactId>
+	<packaging>war</packaging>
+
+	<parent>
+		<groupId>uk.co.pa</groupId>
+		<artifactId>Test</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<appengine.app.version>1-war</appengine.app.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<datanucleus-core.version>3.1.5</datanucleus-core.version>
+    	<jdo-api.version>3.0.1</jdo-api.version>
+    	<jersey.version>2.12</jersey.version>
+	</properties>
+	
+	<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+	<dependencies>
+		<!-- Compile/runtime dependencies -->
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>${appengine.target.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Test Dependencies 
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-testing</artifactId>
+			<version>${appengine.target.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-stubs</artifactId>
+			<version>${appengine.target.version}</version>
+			<scope>test</scope>
+		</dependency>-->
+
+		<!--  Jersey dependencies -->
+		<dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+		<dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-json-jackson</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+	      	<groupId>com.googlecode.objectify</groupId>
+	      	<artifactId>objectify</artifactId>
+	      	<version>4.0b3</version>
+	    </dependency>
+
+		<!-- JDO dependencies
+		<dependency>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>(3.9, )</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-api-jdo</artifactId>
+            <version>(3.9, )</version>
+        </dependency>
+        <dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>2.1.2</version>
+			<scope>runtime</scope>
+		</dependency>	
+		
+         <dependency>
+		      <groupId>javax.jdo</groupId>
+		      <artifactId>jdo-api</artifactId>
+		      <version>3.0.1</version>
+		    </dependency>
+		
+		    <dependency>
+		      <groupId>org.datanucleus</groupId>
+		      <artifactId>datanucleus-core</artifactId>
+		      <version>3.1.4</version>
+		    </dependency>  
+		    <dependency>
+		      <groupId>com.google.appengine.orm</groupId>
+		      <artifactId>datanucleus-appengine</artifactId>
+		      <version>2.1.2</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.datanucleus</groupId>
+		      <artifactId>datanucleus-api-jdo</artifactId>
+		      <version>3.1.3</version>
+		    </dependency>  -->
+	</dependencies>
+
+	<build>
+		<outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+
+		<plugins>
+		    	<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<archiveClasses>true</archiveClasses>
+						<webResources>
+							<!-- in order to interpolate version from pom into appengine-web.xml -->
+							<resource>
+								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+								<filtering>true</filtering>
+								<targetPath>WEB-INF</targetPath>
+							</resource>
+						</webResources>
+					</configuration>
+				</plugin>
+		</plugins>
+	</build>
+</project>
